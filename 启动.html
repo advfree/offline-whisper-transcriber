@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>离线语音转文字</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Outfit', 'Noto Sans SC', system-ui, sans-serif;
+    background: #f8f8fb;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; color: #1a1a24;
+  }
+  .card {
+    background: #fff; border-radius: 12px; padding: 48px 40px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06); max-width: 480px; width: 90%;
+    text-align: center;
+  }
+  h1 { font-size: 1.6rem; font-weight: 600; margin-bottom: 6px; }
+  .sub { color: #999; font-size: 0.9rem; margin-bottom: 32px; }
+  .status { display: flex; align-items: center; gap: 8px; justify-content: center; margin-bottom: 24px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.off { background: #ccc; }
+  .dot.on { background: #00b4a0; box-shadow: 0 0 8px #00b4a040; }
+  .btn {
+    display: inline-block; padding: 14px 40px; border-radius: 8px;
+    font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 180ms;
+    cursor: pointer; border: none; font-family: inherit;
+  }
+  .btn-open {
+    background: #e08a1e; color: #fff; box-shadow: 0 2px 12px #e08a1e30;
+    display: none;
+  }
+  .btn-open:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-start { background: #1a1a24; color: #fff; }
+  .btn-start:hover { background: #333; }
+  .tip { margin-top: 20px; font-size: 0.8rem; color: #999; line-height: 1.6; }
+  code { background: #f0f0f4; padding: 2px 6px; border-radius: 3px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🎙️ 离线语音转文字</h1>
+  <p class="sub">本地运行 · 无需联网 · 数据安全</p>
+  <div class="status">
+    <span class="dot off" id="dot"></span>
+    <span id="statusText" style="color:#999;">检测服务状态...</span>
+  </div>
+  <a class="btn btn-open" id="btnOpen" href="http://127.0.0.1:5100">打开工作台</a>
+  <div id="offlineBox" style="display:none;">
+    <p style="margin-bottom:16px;color:#666;">服务尚未启动</p>
+    <p class="tip">
+      双击运行项目目录下的<br>
+      <code>启动.bat</code><br>
+      或执行命令：<br>
+      <code>python app.py</code>
+    </p>
+  </div>
+</div>
+<script>
+  fetch('http://127.0.0.1:5100/api/health')
+    .then(r => r.json())
+    .then(() => {
+      document.getElementById('dot').className = 'dot on';
+      document.getElementById('statusText').textContent = '服务已就绪';
+      document.getElementById('statusText').style.color = '#00b4a0';
+      document.getElementById('btnOpen').style.display = 'inline-block';
+    })
+    .catch(() => {
+      document.getElementById('dot').className = 'dot off';
+      document.getElementById('statusText').textContent = '服务未启动';
+      document.getElementById('statusText').style.color = '#999';
+      document.getElementById('offlineBox').style.display = 'block';
+    });
+</script>
+</body>
+</html>

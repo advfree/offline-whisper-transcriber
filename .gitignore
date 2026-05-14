@@ -1,0 +1,7 @@
+# 模型文件（体积大，公开可下载）
+models/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
