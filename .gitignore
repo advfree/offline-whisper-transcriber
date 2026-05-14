@@ -1,6 +1,9 @@
 # 模型文件（体积大，公开可下载）
 models/
 
+# 测试音频
+test.m4a
+
 # Python
 __pycache__/
 *.pyc
