@@ -1,8 +1,22 @@
 # 模型文件（体积大，公开可下载）
 models/
 
-# 测试音频
-test.m4a
+# 录音和视频可能含个人信息，默认全部忽略
+*.mp3
+*.m4a
+*.wav
+*.flac
+*.ogg
+*.aac
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+
+# 本地生成的转写结果（仓库内的 test 示例为合成内容，已显式跟踪）
+*录音转文字.txt
+*录音转文字.srt
 
 # Python
 __pycache__/
